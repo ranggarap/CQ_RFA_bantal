@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
+
 namespace PraktikumADO
 {
     public partial class Form1 : Form
@@ -29,9 +30,32 @@ namespace PraktikumADO
                 MessageBox.Show("Koneksi ke database berhasil");
                 conn.Close();
             }
-            catch(Exception ex)
-            { MessageBox.Show(ex.Message);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
+         private void btnHitung_Click(object sender, EventArgs e)
+         {
+             try
+            {
+                Koneksi();
+                conn.Open();
+
+                string query = "SELECT COUNT(*) FROM Mahasiswa";
+
+                cmd = new SqlCommand(query, conn);
+
+                int jumlah = (int)cmd.ExecuteScalar();
+
+                txtHasil.Text = jumlah.ToString();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+          }
+        }
     }
-}
+
