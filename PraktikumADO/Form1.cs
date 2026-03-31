@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Drawing.Text;
 
 
 namespace PraktikumADO
@@ -35,9 +36,9 @@ namespace PraktikumADO
                 MessageBox.Show(ex.Message);
             }
         }
-         private void btnHitung_Click(object sender, EventArgs e)
-         {
-             try
+        private void btnHitung_Click(object sender, EventArgs e)
+        {
+            try
             {
                 Koneksi();
                 conn.Open();
@@ -52,6 +53,29 @@ namespace PraktikumADO
                 conn.Close();
             }
             catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+          private void btnHitungMk_Click(object sender, EventArgs e)
+            {
+            try
+            { 
+
+            Koneksi();
+            conn.Open();
+
+            string query = "SELECT COUNT (*) FROM MataKuliah";
+
+            cmd = new SqlCommand(query, conn);
+
+            int jumlah = (int)cmd.ExecuteScalar();
+
+            txtHasil.Text = jumlah.ToString();
+
+            conn.Close();
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
